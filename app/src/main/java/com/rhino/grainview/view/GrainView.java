@@ -2,7 +2,6 @@ package com.rhino.grainview.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -19,6 +18,7 @@ import android.view.View;
  **/
 public class GrainView extends View {
 
+    private static final int DEFAULT_FLOW_COLOR = 0xFF56DB3C;
     /**
      * The ratio of height for width.
      */
@@ -34,7 +34,7 @@ public class GrainView extends View {
     /**
      * The default color of grain.
      */
-    private static final int DEFAULT_GRAIN_COLOR = 0x33FFFFFF;
+    private static final int DEFAULT_GRAIN_COLOR = 0x66FFFFFF;
     /**
      * The default ratio of flow light width for height.
      */
@@ -180,7 +180,7 @@ public class GrainView extends View {
         this.mPaint.setStyle(Paint.Style.FILL);
         this.mFlowLightShadowDestRect = new Rect();
         this.mFlowLightShadowDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
-                new int[]{0x01FFFFFF & Color.YELLOW, 0x88FFFFFF & Color.YELLOW, 0x01FFFFFF & Color.YELLOW});
+                new int[]{0x01FFFFFF & DEFAULT_FLOW_COLOR, 0x88FFFFFF & DEFAULT_FLOW_COLOR, 0x01FFFFFF & DEFAULT_FLOW_COLOR});
     }
 
     /**

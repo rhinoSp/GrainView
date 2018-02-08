@@ -1,8 +1,8 @@
 package com.rhino.grainview.view;
 
 
-import android.graphics.Path;
 import android.content.Context;
+import android.graphics.Path;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class GrainHelper {
     /**
      * The default height ratio of fourth peak for height.((45-12)/300)
      **/
-    private static final float DEFAULT_PEAK4_HEIGHT_RATIO_FOR_HEIGHT = 0.11f; // TODO
+    private static final float DEFAULT_PEAK4_HEIGHT_RATIO_FOR_HEIGHT = 0.11f;
     /**
      * The default height ratio of center bolt for height.((93-12)/300)
      **/
@@ -55,15 +55,15 @@ public class GrainHelper {
     /**
      * The default angle A left center flag.
      */
-    private static final float DEFAULT_ANGLE_A_LEFT_CENTER_FLAG = 45f;
+    private static final float DEFAULT_ANGLE_A_LEFT_CENTER_FLAG = 48.5f;
     /**
      * The default angle A right center flag.
      */
-    private static final float DEFAULT_ANGLE_B_RIGHT_CENTER_FLAG = 70f;
+    private static final float DEFAULT_ANGLE_B_RIGHT_CENTER_FLAG = 78f;
     /**
      * The default ratio for left line and right line of center flag.(48/65)
      */
-    private static final float DEFAULT_RATIO_LEFT_LINE_AND_RIGHT_LINE_OF_CENTER_FLAG = 0.7384f;
+    private static final float DEFAULT_RATIO_LEFT_LINE_AND_RIGHT_LINE_OF_CENTER_FLAG = 0.7385f;
 
     /**
      * The width of view.
@@ -167,7 +167,7 @@ public class GrainHelper {
         mCenterBigBoltHeight = DEFAULT_CENTER_BOLT_HEIGHT_SCALE_FOR_HEIGHT * mViewHeight;
         mCenterBigBoltWidth = (float) (mCenterBigBoltHeight / Math.tan(mA) - mCenterBigBoltHeight / Math.tan(mB));
 
-        float centerX = mViewWidth - 2 * mEndMarginLineLength - 8 * mPeakBigRadius - 8 * mPeakBigRadius; // TODO
+        float centerX = mViewWidth - 2 * mEndMarginLineLength - 8 * mPeakBigRadius - 8 * mPeakBigRadius;
         mCenterBigBoltLeftLineLength = (centerX - mCenterBigBoltWidth) / (1 + DEFAULT_RATIO_LEFT_LINE_AND_RIGHT_LINE_OF_CENTER_FLAG) * DEFAULT_RATIO_LEFT_LINE_AND_RIGHT_LINE_OF_CENTER_FLAG;
         mCenterBigBoltRightLineLength = centerX - mCenterBigBoltWidth - mCenterBigBoltLeftLineLength;
     }
@@ -536,73 +536,6 @@ public class GrainHelper {
         tmp = tmp - bottomRadius;
         list.add(GrainPathPoint.newPoint(tmp - mEndMarginLineLength, invert * yOffset));
         list.add(GrainPathPoint.newPoint(tmp - mEndMarginLineLength, 0));
-
-        return GrainPathPoint.getGrainPath(list);
-    }
-
-
-    public Path getCenterFlagOuterPath() {
-
-        float gap = 3 * mGrainGap;
-        float topRadius = mPeakBigRadius - gap;
-        float bottomRadius = mPeakBigRadius + gap;
-
-        float centerBoltBottomOffset = 10;
-
-        float yOffset = -mPeakBigYOffset + gap;
-        float centerBoltWidth = (float) (mCenterBigBoltWidth - gap / Math.sin(mA) + gap * Math.tan(Math.toRadians(90 - DEFAULT_ANGLE_A_LEFT_CENTER_FLAG)) - gap / Math.sin(mB) - gap / Math.tan(mB));
-        float centerBoltHeight = (float) (centerBoltWidth * mCenterBigBoltHeight / (mCenterBigBoltHeight / Math.tan(mA) - mCenterBigBoltHeight / Math.tan(mB)));
-        float centerBoltTipOffset = (float) ((centerBoltHeight - centerBoltBottomOffset) / Math.tan(mB));
-        float centerBoltLeftLineLength = (float) (mCenterBigBoltLeftLineLength + gap / Math.sin(mA) - gap * Math.tan(Math.toRadians(90 - DEFAULT_ANGLE_A_LEFT_CENTER_FLAG)));
-        float centerBoltRightLineLength = (float) (mCenterBigBoltRightLineLength + gap / Math.sin(mB) + gap / Math.tan(mB));
-
-
-
-        List<GrainPathPoint> list = new ArrayList<>();
-
-        float tmpXFromLeft = mEndMarginLineLength + bottomRadius + 2 * topRadius + 2 * bottomRadius + 2 * topRadius + bottomRadius;
-        list.add(GrainPathPoint.newPoint(tmpXFromLeft + centerBoltLeftLineLength, yOffset));
-        list.add(GrainPathPoint.newPoint(tmpXFromLeft + centerBoltLeftLineLength + centerBoltWidth + centerBoltTipOffset, yOffset - centerBoltHeight ));
-        list.add(GrainPathPoint.newPoint(tmpXFromLeft + centerBoltLeftLineLength + centerBoltWidth, yOffset - centerBoltBottomOffset));
-
-        float tmpXFromRight = mViewWidth - mEndMarginLineLength - bottomRadius - 2 * topRadius - 2 * bottomRadius - 2 * topRadius - bottomRadius;
-        list.add(GrainPathPoint.newPoint(tmpXFromRight - centerBoltLeftLineLength, -yOffset));
-        list.add(GrainPathPoint.newPoint(tmpXFromRight - centerBoltLeftLineLength - centerBoltWidth - centerBoltTipOffset, -(yOffset - centerBoltHeight)));
-        list.add(GrainPathPoint.newPoint(tmpXFromRight - centerBoltLeftLineLength - centerBoltWidth, -(yOffset - centerBoltBottomOffset)));
-
-        list.add(GrainPathPoint.newPoint(tmpXFromLeft + centerBoltLeftLineLength, yOffset));
-
-        return GrainPathPoint.getGrainPath(list);
-    }
-
-    public Path getCenterFlagCenterPath(float strokeWidth) {
-
-        float gap = 3 * mGrainGap + strokeWidth;
-        float topRadius = mPeakBigRadius - gap;
-        float bottomRadius = mPeakBigRadius + gap;
-
-        float centerBoltBottomOffset = 10;
-
-        float yOffset = -mPeakBigYOffset + gap;
-        float centerBoltWidth = (float) (mCenterBigBoltWidth - gap / Math.sin(mA) + gap * Math.tan(Math.toRadians(90 - DEFAULT_ANGLE_A_LEFT_CENTER_FLAG)) - gap / Math.sin(mB) - gap / Math.tan(mB));
-        float centerBoltHeight = (float) (centerBoltWidth * mCenterBigBoltHeight / (mCenterBigBoltHeight / Math.tan(mA) - mCenterBigBoltHeight / Math.tan(mB)));
-        float centerBoltTipOffset = (float) ((centerBoltHeight - centerBoltBottomOffset) / Math.tan(mB));
-        float centerBoltLeftLineLength = (float) (mCenterBigBoltLeftLineLength + gap / Math.sin(mA) - gap * Math.tan(Math.toRadians(90 - DEFAULT_ANGLE_A_LEFT_CENTER_FLAG)));
-        float centerBoltRightLineLength = (float) (mCenterBigBoltRightLineLength + gap / Math.sin(mB) + gap / Math.tan(mB));
-
-        List<GrainPathPoint> list = new ArrayList<>();
-
-        float tmpXFromLeft = mEndMarginLineLength + bottomRadius + 2 * topRadius + 2 * bottomRadius + 2 * topRadius + bottomRadius;
-        list.add(GrainPathPoint.newPoint(tmpXFromLeft + centerBoltLeftLineLength, yOffset));
-        list.add(GrainPathPoint.newPoint(tmpXFromLeft + centerBoltLeftLineLength + centerBoltWidth + centerBoltTipOffset, yOffset - centerBoltHeight));
-        list.add(GrainPathPoint.newPoint(tmpXFromLeft + centerBoltLeftLineLength + centerBoltWidth, yOffset - centerBoltBottomOffset));
-
-        float tmpXFromRight = mViewWidth - mEndMarginLineLength - bottomRadius - 2 * topRadius - 2 * bottomRadius - 2 * topRadius - bottomRadius;
-        list.add(GrainPathPoint.newPoint(tmpXFromRight - centerBoltLeftLineLength, -yOffset));
-        list.add(GrainPathPoint.newPoint(tmpXFromRight - centerBoltLeftLineLength - centerBoltWidth - centerBoltTipOffset, -(yOffset - centerBoltHeight)));
-        list.add(GrainPathPoint.newPoint(tmpXFromRight - centerBoltLeftLineLength - centerBoltWidth, -(yOffset - centerBoltBottomOffset)));
-
-        list.add(GrainPathPoint.newPoint(tmpXFromLeft + centerBoltLeftLineLength, yOffset));
 
         return GrainPathPoint.getGrainPath(list);
     }
