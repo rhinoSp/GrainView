@@ -1,6 +1,9 @@
 # GrainView
 The grain custom view.
 
+# Screenshot
+![](https://github.com/rhinoSp/GrainView/blob/master/screenrecord/screenrecord.gif)  
+
 # Question / Contact Me / Hire Me
 
 Please feel free to ping me at rhino_luo@163.com.
